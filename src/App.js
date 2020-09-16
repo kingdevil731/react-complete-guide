@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Person from './Components/Person';
 
 function App() {
+  const [showList, setShowList] = useState(false);
+  const [data, setData] = useState([
+   {name: "ruben", age: 20},
+   {name: "rubenOld", age: 21},
+   {name: "rubenOlder", age: 22},
+  ]);
+  let persons = null;
+
+  const showPersonHandler = () => {
+    const res = showList===false ? true : false;
+    setShowList(res);
+  }
+  if(showList){
+    persons = (
+      <div>
+        {data.map((person) => {
+        return (
+          <Person name={person.name} age={person.age} />
+        )
+        })}  
+      </div>
+    );
+  
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Learning React Complete Guide</h1>
+      <button onClick={showPersonHandler}>Show List/Hide List</button>
+      {persons}
     </div>
   );
 }
